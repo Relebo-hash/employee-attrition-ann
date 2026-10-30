@@ -1,0 +1,690 @@
+{
+  "versions": {
+    "python": "3.12.3",
+    "tensorflow": "2.21.0",
+    "keras": "3.15.1",
+    "sklearn": "1.8.0",
+    "pandas": "3.0.2",
+    "numpy": "2.4.4"
+  },
+  "sql_dept": [
+    {
+      "Department": "Sales",
+      "Employees": 446,
+      "Leavers": 92,
+      "AttritionRatePct": 20.63
+    },
+    {
+      "Department": "Human Resources",
+      "Employees": 63,
+      "Leavers": 12,
+      "AttritionRatePct": 19.05
+    },
+    {
+      "Department": "Research & Development",
+      "Employees": 961,
+      "Leavers": 133,
+      "AttritionRatePct": 13.84
+    }
+  ],
+  "data": {
+    "rows": 1470,
+    "cols": 35,
+    "missing": 0,
+    "duplicates": 0,
+    "constant_cols": [
+      "EmployeeCount",
+      "Over18",
+      "StandardHours"
+    ],
+    "num_features_raw": 26,
+    "cat_features_raw": 9,
+    "stay": 1233,
+    "leave": 237,
+    "leave_pct": 16.12
+  },
+  "eda_rates": {
+    "OverTime": {
+      "Yes": 30.53,
+      "No": 10.44
+    },
+    "MaritalStatus": {
+      "Single": 25.53,
+      "Married": 12.48,
+      "Divorced": 10.09
+    },
+    "BusinessTravel": {
+      "Travel_Frequently": 24.91,
+      "Travel_Rarely": 14.96,
+      "Non-Travel": 8.0
+    },
+    "Department": {
+      "Sales": 20.63,
+      "Human Resources": 19.05,
+      "Research & Development": 13.84
+    }
+  },
+  "eda_medians": {
+    "Age": {
+      "stay": 36.0,
+      "leave": 32.0
+    },
+    "MonthlyIncome": {
+      "stay": 5204.0,
+      "leave": 3202.0
+    },
+    "YearsAtCompany": {
+      "stay": 6.0,
+      "leave": 3.0
+    },
+    "DistanceFromHome": {
+      "stay": 7.0,
+      "leave": 9.0
+    },
+    "TotalWorkingYears": {
+      "stay": 10.0,
+      "leave": 7.0
+    }
+  },
+  "top_corr": {
+    "TotalWorkingYears": -0.171,
+    "JobLevel": -0.169,
+    "YearsInCurrentRole": -0.161,
+    "MonthlyIncome": -0.16,
+    "Age": -0.159,
+    "YearsWithCurrManager": -0.156,
+    "StockOptionLevel": -0.137,
+    "YearsAtCompany": -0.134,
+    "JobInvolvement": -0.13,
+    "JobSatisfaction": -0.103,
+    "EnvironmentSatisfaction": -0.103,
+    "DistanceFromHome": 0.078
+  },
+  "prep": {
+    "dropped": [
+      "EmployeeCount",
+      "Over18",
+      "StandardHours",
+      "EmployeeNumber"
+    ],
+    "n_cat": 7,
+    "n_num": 23,
+    "n_features": 44,
+    "cat_cols": [
+      "BusinessTravel",
+      "Department",
+      "EducationField",
+      "Gender",
+      "JobRole",
+      "MaritalStatus",
+      "OverTime"
+    ]
+  },
+  "split": {
+    "train": 940,
+    "val": 236,
+    "test": 294,
+    "train_pos": 152,
+    "val_pos": 38,
+    "test_pos": 47
+  },
+  "class_weight": {
+    "0": 0.596,
+    "1": 3.092
+  },
+  "grid": {
+    "n_configs": 27,
+    "best": {
+      "units": [
+        64,
+        32,
+        16
+      ],
+      "dropout": 0.5,
+      "l2": 0.01,
+      "val_auc": 0.8324
+    },
+    "top5": [
+      {
+        "units": "(64, 32, 16)",
+        "dropout": 0.5,
+        "l2": 0.01,
+        "val_auc_mean": 0.8324,
+        "val_auc_std": 0.0086
+      },
+      {
+        "units": "(64, 32, 16)",
+        "dropout": 0.3,
+        "l2": 0.0001,
+        "val_auc_mean": 0.8315,
+        "val_auc_std": 0.006
+      },
+      {
+        "units": "(64, 32, 16)",
+        "dropout": 0.3,
+        "l2": 0.001,
+        "val_auc_mean": 0.8314,
+        "val_auc_std": 0.0038
+      },
+      {
+        "units": "(64, 32, 16)",
+        "dropout": 0.3,
+        "l2": 0.01,
+        "val_auc_mean": 0.8302,
+        "val_auc_std": 0.0046
+      },
+      {
+        "units": "(64, 32, 16)",
+        "dropout": 0.5,
+        "l2": 0.0001,
+        "val_auc_mean": 0.8293,
+        "val_auc_std": 0.0019
+      }
+    ],
+    "worst_val_auc": 0.8103,
+    "best_val_auc": 0.8324
+  },
+  "ablation": {
+    "V0 Baseline ANN (Experiment 4 setup)": {
+      "accuracy": [
+        0.8344,
+        0.0181
+      ],
+      "precision": [
+        0.4857,
+        0.0637
+      ],
+      "recall": [
+        0.4,
+        0.0608
+      ],
+      "f1": [
+        0.4351,
+        0.0444
+      ],
+      "roc_auc": [
+        0.724,
+        0.0303
+      ],
+      "pr_auc": [
+        0.4676,
+        0.0177
+      ],
+      "epochs_mean": 30.0
+    },
+    "V1 + Early stopping": {
+      "accuracy": [
+        0.852,
+        0.009
+      ],
+      "precision": [
+        0.5572,
+        0.2194
+      ],
+      "recall": [
+        0.2723,
+        0.1651
+      ],
+      "f1": [
+        0.3395,
+        0.1719
+      ],
+      "roc_auc": [
+        0.7508,
+        0.0175
+      ],
+      "pr_auc": [
+        0.4894,
+        0.0307
+      ],
+      "epochs_mean": 29.3
+    },
+    "V2 + Dropout and L2 regularisation": {
+      "accuracy": [
+        0.8575,
+        0.0152
+      ],
+      "precision": [
+        0.4158,
+        0.3596
+      ],
+      "recall": [
+        0.2,
+        0.1758
+      ],
+      "f1": [
+        0.2681,
+        0.2326
+      ],
+      "roc_auc": [
+        0.7653,
+        0.016
+      ],
+      "pr_auc": [
+        0.5242,
+        0.0479
+      ],
+      "epochs_mean": 54.1
+    },
+    "V3 + Class weights (final ANN)": {
+      "accuracy": [
+        0.7463,
+        0.0757
+      ],
+      "precision": [
+        0.36,
+        0.0472
+      ],
+      "recall": [
+        0.6638,
+        0.0867
+      ],
+      "f1": [
+        0.4612,
+        0.035
+      ],
+      "roc_auc": [
+        0.7585,
+        0.0124
+      ],
+      "pr_auc": [
+        0.5203,
+        0.038
+      ],
+      "epochs_mean": 46.6
+    },
+    "V4 + Tuned decision threshold": {
+      "accuracy": [
+        0.849,
+        0.0128
+      ],
+      "precision": [
+        0.535,
+        0.0456
+      ],
+      "recall": [
+        0.4681,
+        0.0511
+      ],
+      "f1": [
+        0.4972,
+        0.036
+      ],
+      "roc_auc": [
+        0.7585,
+        0.0124
+      ],
+      "pr_auc": [
+        0.5203,
+        0.038
+      ],
+      "epochs_mean": 46.6
+    }
+  },
+  "thresholds_by_seed": {
+    "42": 0.7,
+    "1": 0.56,
+    "2": 0.62,
+    "3": 0.66,
+    "4": 0.65,
+    "5": 0.78,
+    "6": 0.76,
+    "7": 0.69,
+    "8": 0.71,
+    "9": 0.8
+  },
+  "comparison": {
+    "Logistic Regression": {
+      "accuracy": [
+        0.7755,
+        0.0
+      ],
+      "precision": [
+        0.3855,
+        0.0
+      ],
+      "recall": [
+        0.6809,
+        0.0
+      ],
+      "f1": [
+        0.4923,
+        0.0
+      ],
+      "roc_auc": [
+        0.7893,
+        0.0
+      ],
+      "pr_auc": [
+        0.5362,
+        0.0
+      ]
+    },
+    "Random Forest": {
+      "accuracy": [
+        0.8303,
+        0.003
+      ],
+      "precision": [
+        0.3793,
+        0.0284
+      ],
+      "recall": [
+        0.0957,
+        0.0112
+      ],
+      "f1": [
+        0.1526,
+        0.0151
+      ],
+      "roc_auc": [
+        0.7541,
+        0.0075
+      ],
+      "pr_auc": [
+        0.3714,
+        0.0092
+      ]
+    },
+    "Baseline ANN (Exp. 4 setup)": {
+      "accuracy": [
+        0.8344,
+        0.0181
+      ],
+      "precision": [
+        0.4857,
+        0.0637
+      ],
+      "recall": [
+        0.4,
+        0.0608
+      ],
+      "f1": [
+        0.4351,
+        0.0444
+      ],
+      "roc_auc": [
+        0.724,
+        0.0303
+      ],
+      "pr_auc": [
+        0.4676,
+        0.0177
+      ],
+      "epochs_mean": 30.0
+    },
+    "Final ANN (V3, threshold 0.5)": {
+      "accuracy": [
+        0.7463,
+        0.0757
+      ],
+      "precision": [
+        0.36,
+        0.0472
+      ],
+      "recall": [
+        0.6638,
+        0.0867
+      ],
+      "f1": [
+        0.4612,
+        0.035
+      ],
+      "roc_auc": [
+        0.7585,
+        0.0124
+      ],
+      "pr_auc": [
+        0.5203,
+        0.038
+      ],
+      "epochs_mean": 46.6
+    },
+    "Final ANN (V4, tuned threshold)": {
+      "accuracy": [
+        0.849,
+        0.0128
+      ],
+      "precision": [
+        0.535,
+        0.0456
+      ],
+      "recall": [
+        0.4681,
+        0.0511
+      ],
+      "f1": [
+        0.4972,
+        0.036
+      ],
+      "roc_auc": [
+        0.7585,
+        0.0124
+      ],
+      "pr_auc": [
+        0.5203,
+        0.038
+      ],
+      "epochs_mean": 46.6
+    },
+    "Logistic Regression (tuned threshold)": {
+      "accuracy": [
+        0.8231,
+        0.0
+      ],
+      "precision": [
+        0.451,
+        0.0
+      ],
+      "recall": [
+        0.4894,
+        0.0
+      ],
+      "f1": [
+        0.4694,
+        0.0
+      ],
+      "roc_auc": [
+        0.7893,
+        0.0
+      ],
+      "pr_auc": [
+        0.5362,
+        0.0
+      ]
+    },
+    "Random Forest (tuned threshold)": {
+      "accuracy": [
+        0.8061,
+        0.0113
+      ],
+      "precision": [
+        0.3918,
+        0.0204
+      ],
+      "recall": [
+        0.3787,
+        0.0538
+      ],
+      "f1": [
+        0.383,
+        0.0276
+      ],
+      "roc_auc": [
+        0.7541,
+        0.0075
+      ],
+      "pr_auc": [
+        0.3714,
+        0.0092
+      ]
+    }
+  },
+  "lr_threshold": 0.7,
+  "final": {
+    "threshold": 0.7,
+    "epochs_run": 38,
+    "baseline_epochs": 30,
+    "at_0.5": {
+      "accuracy": 0.7653,
+      "precision": 0.369,
+      "recall": 0.6596,
+      "f1": 0.4733,
+      "roc_auc": 0.7402,
+      "pr_auc": 0.4914
+    },
+    "at_thr": {
+      "accuracy": 0.8435,
+      "precision": 0.5135,
+      "recall": 0.4043,
+      "f1": 0.4524,
+      "roc_auc": 0.7402,
+      "pr_auc": 0.4914
+    },
+    "val_auc": 0.8203
+  },
+  "baseline_seed42": {
+    "accuracy": 0.8537,
+    "precision": 0.5556,
+    "recall": 0.4255,
+    "f1": 0.4819,
+    "roc_auc": 0.7207,
+    "pr_auc": 0.4807
+  },
+  "params": {
+    "baseline": 5385,
+    "final": 5505
+  },
+  "curves": {
+    "baseline_final_train_loss": 0.0015,
+    "baseline_final_val_loss": 0.9362,
+    "baseline_min_val_loss": 0.3803,
+    "baseline_min_val_epoch": 6,
+    "baseline_final_train_auc": 1.0,
+    "baseline_final_val_auc": 0.787,
+    "final_best_epoch": 18,
+    "final_train_auc_at_best": 0.7856,
+    "final_val_auc_at_best": 0.8205
+  },
+  "cm": {
+    "baseline": [
+      [
+        231,
+        16
+      ],
+      [
+        27,
+        20
+      ]
+    ],
+    "final": [
+      [
+        229,
+        18
+      ],
+      [
+        28,
+        19
+      ]
+    ]
+  },
+  "importance": {
+    "base_auc": 0.7402,
+    "top": [
+      [
+        "OverTime_Yes",
+        0.0534
+      ],
+      [
+        "JobLevel",
+        0.0201
+      ],
+      [
+        "JobSatisfaction",
+        0.0131
+      ],
+      [
+        "RelationshipSatisfaction",
+        0.0112
+      ],
+      [
+        "BusinessTravel_Travel_Frequently",
+        0.011
+      ],
+      [
+        "JobInvolvement",
+        0.0093
+      ],
+      [
+        "MaritalStatus_Single",
+        0.0091
+      ],
+      [
+        "MaritalStatus_Married",
+        0.0072
+      ],
+      [
+        "YearsInCurrentRole",
+        0.0065
+      ],
+      [
+        "EducationField_Life Sciences",
+        0.0045
+      ],
+      [
+        "EnvironmentSatisfaction",
+        0.0044
+      ],
+      [
+        "JobRole_Manager",
+        0.0042
+      ]
+    ]
+  },
+  "error_analysis": {
+    "OverTime = Yes": {
+      "n": 76,
+      "leavers": 30,
+      "caught": 14,
+      "missed": 16,
+      "false_alarms": 3,
+      "recall": 0.467
+    },
+    "OverTime = No": {
+      "n": 218,
+      "leavers": 17,
+      "caught": 5,
+      "missed": 12,
+      "false_alarms": 15,
+      "recall": 0.294
+    },
+    "All employees": {
+      "n": 294,
+      "leavers": 47,
+      "caught": 19,
+      "missed": 28,
+      "false_alarms": 18,
+      "recall": 0.404
+    }
+  },
+  "demo": [
+    {
+      "test_row": 4,
+      "actual": "Left",
+      "probability": 0.491,
+      "decision": "Likely to stay"
+    },
+    {
+      "test_row": 0,
+      "actual": "Stayed",
+      "probability": 0.714,
+      "decision": "HIGH RISK of leaving"
+    },
+    {
+      "test_row": 35,
+      "actual": "Left",
+      "probability": 0.744,
+      "decision": "HIGH RISK of leaving"
+    }
+  ]
+}
